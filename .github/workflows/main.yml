@@ -24,7 +24,7 @@ jobs:
       - name: Run tests
         run: |
           cd client
-          npm test
+          quasar test --unit jest
       - name: Run build
-        run: npm run build
+        run: quasar build
 
