@@ -29,13 +29,8 @@ jobs:
         run: |
           cd client
           npm run build
-      - name: Install Node.js dependencies
+      - name: Run linters
         run: |
           cd client
-          npm ci
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          prettier: true
+          npm run lint
 
