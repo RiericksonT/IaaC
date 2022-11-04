@@ -16,3 +16,7 @@ module.exports = {
   presets: ['@quasar/babel-preset-app'],
   extends: extend,
 };
+
+rules = {
+  "@typescript-eslint/no-var-requires": 0,
+}
