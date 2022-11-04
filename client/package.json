@@ -6,6 +6,7 @@
   "author": "Ezequiel <ezequiel1de1oliveira@gmail.com>",
   "private": true,
   "scripts": {
+    "dev": "SET NODE_OPTIONS=--openssl-legacy-provider && quasar dev",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "test:unit": "jest --updateSnapshot",
@@ -26,6 +27,8 @@
     "@quasar/app": "^2.0.0",
     "@quasar/quasar-app-extension-testing": "^1.0.3",
     "@quasar/quasar-app-extension-testing-unit-jest": "^2.2.2",
+    "quasar-extras": "0.x",
+    "quasar-framework": "0.14.9",
     "babel-eslint": "^10.0.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",

@@ -89,7 +89,7 @@ export default {
     })
     .catch((err) => {
         console.error(err);
-        alert('Ocorreu algum erro.');
+        alert('Ocorreu algum erro.'+ err);
     })
     this.filteredItems = this.items;
   },
