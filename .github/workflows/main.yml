@@ -25,10 +25,6 @@ jobs:
         run: |
           cd client
           npm test
-      - name: Run tests unit
-        run: |
-          cd client
-          npm run test:unit:ci
       - name: Run build
         run: npm run build
 
