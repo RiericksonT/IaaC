@@ -9,7 +9,19 @@ on:
 
 jobs:
   build:
-    name: tests
+    name: mount database
+    runs-on: postgres:12.2
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: myuser
+      POSTGRES_DB: myproject
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      
+  build: 
+    name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,16 +40,34 @@ jobs:
           sudo python3 -m venv venv
           source venv/bin/activate
           sudo pip3 install django djangorestframework psycopg2 django-cors-headers
+      - name: Run build
+        run: |
+          cd client
+          npm run build
+  build:
+    name: tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.13.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.13.0
       - name: Run tests
         run: |
           cd client
           npm run test:unit
           # cd ../api
           # python manage.py test
-      - name: Run build
-        run: |
-          cd client
-          npm run build
+  build:
+    name: Post deployment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.13.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.13.0
       - name: Create Pull Requests
         uses: peter-evans/create-pull-request@v3
         with:
