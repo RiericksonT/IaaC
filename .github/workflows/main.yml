@@ -42,7 +42,7 @@ jobs:
         uses: meercodeio/meercode-custom-variable@0.1.0
         with:
           meercode-token: 'IPzPQBHDjG3rdrk9HsQEwPpW9x428yo5'
-          url: 'YOUR_CUSTOM_URL'
+          url: 'https://meercode.io/api/v1/builds/5f9f9b0b-9c1a-4b9c-8b9c-9c1a4b9c8b9c/variables'
          
        
 
