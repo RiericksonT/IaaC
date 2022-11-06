@@ -7,7 +7,7 @@ on:
       - '!master'
   workflow_dispatch:
 
-jobs:
+runs:
   job:
     name: mount database
     runs-on: postgres:12.2
