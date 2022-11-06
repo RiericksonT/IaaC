@@ -24,6 +24,13 @@ jobs:
           cd ../api
           sudo apt-get update
           sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
+          sudo su - postgres
+          psql
+          CREATE DATABASE myproject;
+	        CREATE USER myuser WITH PASSWORD 'password';
+	        GRANT ALL PRIVILEGES ON DATABASE myproject TO myuser;
+          ALTER USER myuser CREATEDB;
+          \q
           sudo pip3 install virtualenv
           sudo python3 -m venv venv
           source venv/bin/activate
