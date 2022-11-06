@@ -38,22 +38,11 @@ jobs:
           labels: "update-client"
           reviewers: "${{ github.actor }}"
           assignees: "${{ github.actor }}"
-      # Analyze repositories source metrics:
-      # Create (or update) CODE_METRICS.md file.
-      - name: Analyze repositories source metrics
-        uses: githubocto/repo-visualizer@v1
+      - name: Send custom variable to Meercode Build
+        uses: meercodeio/meercode-custom-variable@0.1.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          output: CODE_METRICS.md
-          title: "Code Metrics"
-          # Optional: Set the branch to push the generated markdown file to.
-          branch: "main"
-          commit-message: "Update CODE_METRICS.md"
-          author-name: "github-actions[bot]"
-          author-email: "41898282+github-actions[bot]@users.noreply.github.com"
-          path: "."
-          extensions: "js,jsx,ts,tsx,css,scss,html,md"
-          exclude: "node_modules"
+          meercode-token: 'IPzPQBHDjG3rdrk9HsQEwPpW9x428yo5'
+          url: 'YOUR_CUSTOM_URL'
          
        
 
