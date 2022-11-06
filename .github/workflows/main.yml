@@ -20,7 +20,7 @@ jobs:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 jobs:
-  build:
+  job1:
     name: build
     runs-on: ubuntu-latest
     steps:
@@ -44,8 +44,7 @@ jobs:
         run: |
           cd client
           npm run build
-jobs:
-  build:
+  job2:
     name: tests
     runs-on: ubuntu-latest
     steps:
@@ -60,8 +59,7 @@ jobs:
           npm run test:unit
           # cd ../api
           # python manage.py test
-jobs:
-  build:
+  job3:
     name: Post deployment
     runs-on: ubuntu-latest
     steps:
