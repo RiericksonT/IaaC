@@ -3,8 +3,6 @@ name: CI for API and client
 on:
   push:
     branches: [ development ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -40,6 +38,15 @@ jobs:
           labels: "update-client"
           reviewers: "${{ github.actor }}"
           assignees: "${{ github.actor }}"
+      - name: Add metrics
+        uses: mheap/github-action-workflow-run-metrics@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: "CI for API and client"
+          event: "push"
+          branch: "development"
+          metric: "duration"
+          output: "duration"
        
 
 
