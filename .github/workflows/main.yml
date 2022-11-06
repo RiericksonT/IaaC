@@ -38,11 +38,23 @@ jobs:
           labels: "update-client"
           reviewers: "${{ github.actor }}"
           assignees: "${{ github.actor }}"
-      - name: Add metrics to the pull request
-        uses: andymckay/labeler@master
+      # Analyze repositories source metrics:
+      # Create (or update) CODE_METRICS.md file.
+      - name: Analyze repositories source metrics
+        uses: githubocto/repo-visualizer@v1
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: ".github/labeler.yml"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          output: CODE_METRICS.md
+          title: "Code Metrics"
+          # Optional: Set the branch to push the generated markdown file to.
+          branch: "main"
+          commit-message: "Update CODE_METRICS.md"
+          author-name: "github-actions[bot]"
+          author-email: "41898282+github-actions[bot]@users.noreply.github.com"
+          path: "."
+          extensions: "js,jsx,ts,tsx,css,scss,html,md"
+          exclude: "node_modules"
+         
        
 
 
