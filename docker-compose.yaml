@@ -14,7 +14,7 @@ services:
     
   api:
     build: ./api/
-    container_name: api
+    container_name: Api
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: myuser
@@ -29,7 +29,7 @@ services:
     
   client:
     build: ./client/
-    container_name: client
+    container_name: Client
     command: sh -c "npm install -g @quasar/cli  && quasar dev"
     ports:
       - 3000:8080
