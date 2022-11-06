@@ -21,19 +21,10 @@ jobs:
         run: |
           cd client
           npm install
-          cd ../api
-          apt-get update
-          apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
-          pip3 install virtualenv
-          python3 -m venv venv
-          . venv/bin/activate
-          pip3 install django djangorestframework psycopg2 django-cors-headers
       - name: Run tests
         run: |
           cd client
           npm run test:unit
-          cd ../api
-          python manage.py test
       - name: Run build
         run: |
           cd client
