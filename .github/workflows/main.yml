@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  job:
     name: mount database
     runs-on: postgres:12.2
     environment:
@@ -19,7 +19,6 @@ jobs:
       - 5432:5432
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
-jobs:
   job1:
     name: build
     runs-on: ubuntu-latest
