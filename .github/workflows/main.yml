@@ -45,7 +45,7 @@ jobs:
           commit-message: "A changes are passed on tests and build"
           branch: "main"
           title: "New aproved changes"
-          body: "A changes are passed on tests and build"
+          body: "A changes are passed on tests and builds"
           labels: "update-client"
           reviewers: "${{ github.actor }}"
           assignees: "${{ github.actor }}"
