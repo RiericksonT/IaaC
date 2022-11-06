@@ -8,28 +8,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  job:
-    name: mount database
-    runs-on: postgres:12.2
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: myuser
-      POSTGRES_DB: myproject
-    ports:
-      - 5432:5432
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-  job1:
-    name: build
+  build:
+    name: tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 16.13.0
-      - uses: actions/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: 16.13.0
       - name: Install dependencies
-      - run: |
+        run: |
           cd client
           npm install
           cd ../api
@@ -39,36 +28,18 @@ jobs:
           sudo python3 -m venv venv
           source venv/bin/activate
           sudo pip3 install django djangorestframework psycopg2 django-cors-headers
-      - name: Run build
-      - run: |
-          cd client
-          npm run build
-  job2:
-    name: tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 16.13.0
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 16.13.0
       - name: Run tests
-      - run: |
+        run: |
           cd client
           npm run test:unit
           # cd ../api
           # python manage.py test
-  job3:
-    name: Post deployment
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 16.13.0
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 16.13.0
+      - name: Run build
+        run: |
+          cd client
+          npm run build
       - name: Create Pull Requests
-      - uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "A changes are passed on tests and build"
@@ -79,7 +50,7 @@ jobs:
           reviewers: "${{ github.actor }}"
           assignees: "${{ github.actor }}"
       - name: Send custom variable to Meercode Build
-      - uses: meercodeio/meercode-custom-variable@0.1.0
+        uses: meercodeio/meercode-custom-variable@0.1.0
         with:
           meercode-token: 'IPzPQBHDjG3rdrk9HsQEwPpW9x428yo5'
           url: 'https://meercode.io/api/v1/builds/5f9f9b0b-9c1a-4b9c-8b9c-9c1a4b9c8b9c/variables'
