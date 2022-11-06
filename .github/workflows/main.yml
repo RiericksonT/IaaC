@@ -27,8 +27,8 @@ jobs:
           sudo su - postgres
           psql
           CREATE DATABASE myproject;
-	        CREATE USER myuser WITH PASSWORD 'password';
-	        GRANT ALL PRIVILEGES ON DATABASE myproject TO myuser;
+          CREATE USER myuser WITH PASSWORD 'password';
+          GRANT ALL PRIVILEGES ON DATABASE myproject TO myuser;
           ALTER USER myuser CREATEDB;
           \q
           sudo pip3 install virtualenv
@@ -45,7 +45,7 @@ jobs:
         run: |
           cd client
           npm run build
-      - name: Create Pull Request
+      - name: Create Pull Requests
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
