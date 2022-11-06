@@ -38,15 +38,11 @@ jobs:
           labels: "update-client"
           reviewers: "${{ github.actor }}"
           assignees: "${{ github.actor }}"
-      - name: Add metrics
-        uses: mheap/github-action-workflow-run-metrics@v1
+      - name: Add metrics to the pull request
+        uses: andymckay/labeler@master
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: "CI for API and client"
-          event: "push"
-          branch: "development"
-          metric: "duration"
-          output: "duration"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: ".github/labeler.yml"
        
 
 
