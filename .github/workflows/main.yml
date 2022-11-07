@@ -8,28 +8,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_database:
-    runs-on: ubuntu-latest
-    container: node:10.18-jessie
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-        env:
-          POSTGRES_HOST: 0.0.0.0
-          POSTGRES_PORT: 5432
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: password
-          POSTGRES_USER: myuser
-          POSTGRES_DB: myproject
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    
   build_test:
     name: build e test
     runs-on: ubuntu-latest
@@ -47,6 +25,8 @@ jobs:
           cd ../api
           sudo apt-get update
           sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
+          sudo systemctl start postgresql.service
+          pg_isready
           sudo pip3 install virtualenv
           sudo python3 -m venv venv
           source venv/bin/activate
