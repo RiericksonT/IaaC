@@ -96,11 +96,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run tests
-        - run: |
-           cd client
-           npm run test:unit
-           cd ../api
-           python manage.py test
+    - run: |
+        cd client
+        npm run test:unit
+        cd ../api
+        python manage.py test
   database:
     name: Create database
     runs-on: postgres:12.2
