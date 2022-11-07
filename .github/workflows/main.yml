@@ -43,6 +43,16 @@ jobs:
       with:
         meercode-token: 'IPzPQBHDjG3rdrk9HsQEwPpW9x428yo5'
         url: 'https://game-moura.atlassian.net/browse/MTPG-8?atlOrigin=eyJpIjoiNmRjN2NhYjU2ODljNDYwMzhhMTFlY2M2OTc0YzllNmMiLCJwIjoiaiJ9'
-  
+    - name: Create pull request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
+        title: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
+        body: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
+        branch: 'merge/${{ github.event.pull_request.head.ref }}'
+        base: 'main'
+        delete-branch: false
+        labels: 'merge'
         
       
