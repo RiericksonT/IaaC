@@ -32,6 +32,9 @@ jobs:
           sudo python3 -m venv venv
           source venv/bin/activate
           sudo pip3 install django djangorestframework psycopg2 django-cors-headers
+          git add * 
+          git stash
+          git pull
     - name: Test client and api
       run: |
           cd client
