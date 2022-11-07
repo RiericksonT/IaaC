@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  container-job:
+  build_database:
     runs-on: ubuntu-latest
     container: node:10.18-jessie
     steps:
@@ -43,7 +43,7 @@ jobs:
       run: |
           cd client
           npm install
-          pm run build
+          npm run build
           cd ../api
           sudo apt-get update
           sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
