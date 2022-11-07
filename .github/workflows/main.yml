@@ -94,8 +94,9 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     steps:
-      name: Run tests
-        run: |
+    - uses: actions/checkout@v2
+    - name: Run tests
+        - run: |
            cd client
            npm run test:unit
            cd ../api
