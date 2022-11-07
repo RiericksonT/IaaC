@@ -34,34 +34,29 @@ jobs:
     name: build e test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 16.13.0
-      - run: |
-          cd client
-          npm install
-          cd ../api
-          sudo apt-get update
-          sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
-          sudo pip3 install virtualenv
-          sudo python3 -m venv venv
-          source venv/bin/activate
-          sudo pip3 install django djangorestframework psycopg2 django-cors-headers
-      - run: |
-          cd client
-          npm run test:unit
-          # cd ../api
-          # python manage.py test
-      - run: |
-          cd client
-          npm run build
-      - uses: actions/checkout@v2
-      - run: |
-          cd client
-          npm run test:unit
-          cd ../api
-          python manage.py test
+      - name: Build a client and api
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: 16.13.0
+        - run: |
+            cd client
+            npm install
+            pm run build
+            cd ../api
+            sudo apt-get update
+            sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
+            sudo pip3 install virtualenv
+            sudo python3 -m venv venv
+            source venv/bin/activate
+            sudo pip3 install django djangorestframework psycopg2 django-cors-headers
+      - name: Test client and api
+        - run: |
+            cd client
+            npm run test:unit
+            cd ../api
+            python manage.py test
+
   
         
       
