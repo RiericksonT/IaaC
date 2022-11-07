@@ -27,7 +27,7 @@ jobs:
           sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
           sudo systemctl start postgresql.service
           pg_isready
-          sudo psql -c "CREATE USER myuser WITH PASSWORD 'password'"
+          sudo psql -U postgres -c "CREATE USER myuser WITH PASSWORD 'password'"
           sudo pip3 install virtualenv
           sudo python3 -m venv venv
           source venv/bin/activate
@@ -38,7 +38,11 @@ jobs:
           npm run test:unit
           cd ../api
           python manage.py test
-
+    - name: Send custom variable to Meercode Build
+      uses: meercodeio/meercode-custom-variable@0.1.0
+      with:
+        meercode-token: 'IPzPQBHDjG3rdrk9HsQEwPpW9x428yo5'
+        url: 'https://game-moura.atlassian.net/browse/MTPG-8?atlOrigin=eyJpIjoiNmRjN2NhYjU2ODljNDYwMzhhMTFlY2M2OTc0YzllNmMiLCJwIjoiaiJ9'
   
         
       
