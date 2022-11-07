@@ -25,9 +25,9 @@ jobs:
           cd ../api
           sudo apt-get update
           sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
-          sudo systemctl start postgresql.service
-          pg_isready
-          sudo psql -U postgres -c "CREATE USER myuser WITH PASSWORD 'password'"
+          # sudo systemctl start postgresql.service
+          # pg_isready
+          # sudo psql -U postgres -c "CREATE USER myuser WITH PASSWORD 'password'"
           sudo pip3 install virtualenv
           sudo python3 -m venv venv
           source venv/bin/activate
@@ -36,8 +36,8 @@ jobs:
       run: |
           cd client
           npm run test:unit
-          cd ../api
-          python manage.py test
+          # cd ../api
+          # python manage.py test
     - name: Send custom variable to Meercode Build
       uses: meercodeio/meercode-custom-variable@0.1.0
       with:
