@@ -49,7 +49,7 @@ jobs:
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: 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
         commit-message: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
         title: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
         body: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
