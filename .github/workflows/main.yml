@@ -57,7 +57,12 @@
          
 name: Pipeline for API and client
 
-on: [pull request]
+on: 
+  push:
+    branches: 
+      - development
+      - '!master'
+  workflow_dispatch:
 
 jobs:
   build:
