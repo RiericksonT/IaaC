@@ -1,6 +1,6 @@
-name: CI for API and client
+name: Pipeline for API and client
 
-on:
+on: 
   push:
     branches: 
       - development
@@ -8,53 +8,54 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: tests
+  build_test:
+    name: build e test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 16.13.0
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16.13.0
-      - name: Install dependencies
-        run: |
+    - uses: actions/checkout@v2
+    - name: Use nodeJs-16.13.0
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.13.0
+    - name : Install dependencies and build
+      run: |
           cd client
           npm install
+          npm run build
           cd ../api
           sudo apt-get update
           sudo apt-get install python3-pip python3-venv python3-dev libpq-dev postgresql postgresql-contrib -y
+          # sudo systemctl start postgresql.service
+          # pg_isready
+          # sudo psql -U postgres -c "CREATE USER myuser WITH PASSWORD 'password'"
           sudo pip3 install virtualenv
           sudo python3 -m venv venv
           source venv/bin/activate
           sudo pip3 install django djangorestframework psycopg2 django-cors-headers
-      - name: Run tests
-        run: |
+          git add * 
+          git stash
+          git pull
+    - name: Test client and api
+      run: |
           cd client
           npm run test:unit
           # cd ../api
           # python manage.py test
-      - name: Run build
-        run: |
-          cd client
-          npm run build
-      - name: Create Pull Requests
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "A changes are passed on tests and build"
-          branch: "main"
-          title: "New aproved changes"
-          body: "A changes are passed on tests and build"
-          labels: "update-client"
-          reviewers: "${{ github.actor }}"
-          assignees: "${{ github.actor }}"
-      - name: Send custom variable to Meercode Build
-        uses: meercodeio/meercode-custom-variable@0.1.0
-        with:
-          meercode-token: 'IPzPQBHDjG3rdrk9HsQEwPpW9x428yo5'
-          url: 'https://meercode.io/api/v1/builds/5f9f9b0b-9c1a-4b9c-8b9c-9c1a4b9c8b9c/variables'
-         
-       
-
-
+    - name: Send custom variable to Meercode Build
+      uses: meercodeio/meercode-custom-variable@0.1.0
+      with:
+        meercode-token: 'IPzPQBHDjG3rdrk9HsQEwPpW9x428yo5'
+        url: 'https://game-moura.atlassian.net/browse/MTPG-8?atlOrigin=eyJpIjoiNmRjN2NhYjU2ODljNDYwMzhhMTFlY2M2OTc0YzllNmMiLCJwIjoiaiJ9'
+#    - name: Create pull request
+#      uses: peter-evans/create-pull-request@v3
+#      with:
+#        token: ${{ secrets.PAT }}
+#        commit-message: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
+#        title: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
+#        body: 'Merge pull request #${{ github.event.number }} from ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}'
+#        branch: 'merge/${{ github.event.pull_request.head.ref }}'
+#        base: 'main'
+#        delete-branch: false
+#        labels: 'merge'
+        
+      
